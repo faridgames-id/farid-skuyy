@@ -1,6 +1,6 @@
 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
   <!-- Base background: Blue with rounded corners -->
-  <rect width="512" height="512" rx="0" fill="#4B65FF" />
+  <rect width="512" height="512" fill="#4B65FF" />
   
   <!-- Line chart path -->
   <path d="M 140 330 L 220 230 L 280 270 L 380 170" 
