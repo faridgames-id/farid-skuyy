@@ -17,7 +17,7 @@ async function handleGoogleLogin(setUser: (u: any) => void) {
     })
   } catch (error: any) {
     console.error("Login failed:", error)
-    toast.error("Login failed. Check your Firebase config in .env file.")
+    toast.error(`Login failed: ${error.message || 'Check your Firebase config.'}`)
   }
 }
 

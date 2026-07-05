@@ -88,3 +88,24 @@
   0% { transform: scale(1); opacity: 0.75; }
   100% { transform: scale(2); opacity: 0; }
 }
+
+/* Mobile Performance Optimization for Glassmorphism */
+@media (max-width: 768px) {
+  /* Reduce expensive backdrop blurs on mobile devices */
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-3xl,
+  .backdrop-blur-lg {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+  
+  /* Completely hide heavy decorative ambient blur circles to save GPU on mobile */
+  .blur-3xl,
+  .blur-2xl,
+  .blur-\[100px\],
+  .blur-\[120px\],
+  .blur-\[80px\] {
+    display: none !important;
+  }
+}
