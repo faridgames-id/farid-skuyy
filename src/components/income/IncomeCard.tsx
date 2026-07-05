@@ -4,11 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Trash2, ChevronDown, Pencil, Check, X, DollarSign } from 'lucide-react'
 import type { IncomeEntry } from '../../types/income'
 import { useIncomeStore } from '../../store/incomeStore'
-import { useAppStore } from '../../store/appStore'
-import {
-  deleteIncomeFromFirestore,
-  updateIncomeInFirestore,
-} from '../../hooks/useIncomeFirestore'
 
 const SOURCE_COLORS: Record<string, { bg: string; text: string; dot: string }> = {
   Freelance:     { bg: 'bg-purple-50 dark:bg-purple-900/20',  text: 'text-purple-600 dark:text-purple-400',  dot: 'bg-purple-500' },
@@ -55,7 +50,6 @@ interface Props {
 
 export default function IncomeCard({ entry, index }: Props) {
   const { deleteEntry, updateEntry } = useIncomeStore()
-  const user = useAppStore((s) => s.user)
 
   const [expanded, setExpanded] = useState(false)
   const [editing, setEditing] = useState(false)
@@ -103,7 +97,6 @@ export default function IncomeCard({ entry, index }: Props) {
       note: editNote.trim(),
     }
     updateEntry(entry.id, patch)
-    if (user) await updateIncomeInFirestore(user.uid, entry.id, patch)
     setSaving(false)
     setEditing(false)
   }
@@ -112,7 +105,6 @@ export default function IncomeCard({ entry, index }: Props) {
     if (!confirmDelete) { setConfirmDelete(true); return }
     setDeleting(true)
     deleteEntry(entry.id)
-    if (user) await deleteIncomeFromFirestore(user.uid, entry.id)
   }
 
   const cardStyle = entry.type === 'income' 

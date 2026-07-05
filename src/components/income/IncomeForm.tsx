@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { DollarSign, Tag, CalendarDays, StickyNote, X, CheckCircle2, Plus } from 'lucide-react'
 import { useIncomeStore } from '../../store/incomeStore'
 import { useAppStore } from '../../store/appStore'
-import { addIncomeToFirestore } from '../../hooks/useIncomeFirestore'
 import CalendarPicker from '../schedule/CalendarPicker'
 
 const SOURCE_PRESETS = ['Freelance', 'Salary', 'Side Project', 'Investment', 'Gift', 'Other']
@@ -23,7 +22,6 @@ export default function IncomeForm({ onClose }: Props) {
   const addEntry = useIncomeStore((s) => s.addEntry)
   const customSources = useIncomeStore((s) => s.customSources || [])
   const addCustomSource = useIncomeStore((s) => s.addCustomSource)
-  const user = useAppStore((s) => s.user)
 
   const [type, setType] = useState<'income' | 'expense'>('income')
   const [amount, setAmount] = useState('')
@@ -65,9 +63,6 @@ export default function IncomeForm({ onClose }: Props) {
       }
       
       addEntry(entry)
-      if (user) {
-        await addIncomeToFirestore(user.uid, entry)
-      }
       setSuccess(true)
       setAmount('')
       setSource('')
