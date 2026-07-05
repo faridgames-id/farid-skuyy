@@ -8,9 +8,10 @@ import ScheduleAddForm from './ScheduleAddForm'
 import PeriodBlock, { PERIODS } from './PeriodBlock'
 import CalendarPicker from './CalendarPicker'
 import type { Period } from '../../types/schedule'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
 function toISO(d: Date) {
-  return d.toISOString().slice(0, 10)
+  return getLocalISOString(d)
 }
 
 function formatDateDisplay(iso: string) {

@@ -7,6 +7,7 @@ import { useIncomeStore } from '../../store/incomeStore'
 import { useScheduleStore } from '../../store/scheduleStore'
 import { useGymStore } from '../../store/gymStore'
 import { useSavingsStore } from '../../store/savingsStore'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
 function formatRpShort(n: number) {
   return `Rp ${n.toLocaleString('id-ID')}`
@@ -16,7 +17,7 @@ function formatRp(n: number) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n)
 }
 
-function toISO(d: Date) { return d.toISOString().slice(0, 10) }
+function toISO(d: Date) { return getLocalISOString(d) }
 function computeStreak(dates: string[]): number {
   if (!dates.length) return 0
   const sorted = [...new Set(dates)].sort((a, b) => b.localeCompare(a))

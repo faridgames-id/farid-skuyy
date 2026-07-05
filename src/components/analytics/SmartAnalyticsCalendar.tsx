@@ -8,11 +8,12 @@ import { useScheduleStore } from '../../store/scheduleStore'
 import { useGymStore } from '../../store/gymStore'
 import { useSavingsStore } from '../../store/savingsStore'
 import { useAppStore } from '../../store/appStore'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function toISO(d: Date) {
-  return d.toISOString().slice(0, 10)
+  return getLocalISOString(d)
 }
 
 function formatRp(n: number) {

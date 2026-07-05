@@ -5,6 +5,7 @@ import { DollarSign, Tag, CalendarDays, StickyNote, X, CheckCircle2, Plus } from
 import { useIncomeStore } from '../../store/incomeStore'
 import { useAppStore } from '../../store/appStore'
 import CalendarPicker from '../schedule/CalendarPicker'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
 const SOURCE_PRESETS = ['Freelance', 'Salary', 'Side Project', 'Investment', 'Gift', 'Other']
 
@@ -26,7 +27,7 @@ export default function IncomeForm({ onClose }: Props) {
   const [type, setType] = useState<'income' | 'expense'>('income')
   const [amount, setAmount] = useState('')
   const [source, setSource] = useState('')
-  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10))
+  const [date, setDate] = useState(() => getLocalISOString())
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [note, setNote] = useState('')
   

@@ -13,6 +13,7 @@ import { useGymStore } from '../../store/gymStore'
 import { useSavingsStore, getWeekStart } from '../../store/savingsStore'
 import { useAppStore } from '../../store/appStore'
 import SmartAnalyticsCalendar from './SmartAnalyticsCalendar'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
 function formatRpShort(n: number) {
   return new Intl.NumberFormat('id-ID').format(n)
@@ -122,8 +123,8 @@ export default function AnalyticsPage() {
     for (let w = 5; w >= 0; w--) {
       const endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - w * 7)
       const startDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() - 6)
-      const startISO = startDate.toISOString().slice(0, 10)
-      const endISO = endDate.toISOString().slice(0, 10)
+      const startISO = getLocalISOString(startDate)
+      const endISO = getLocalISOString(endDate)
       const label = `W${6 - w}`
 
       const gymCount = gymSessions.filter(

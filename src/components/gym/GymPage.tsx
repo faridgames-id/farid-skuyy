@@ -8,9 +8,10 @@ import GymAddForm from './GymAddForm'
 import GymHeatmap from './GymHeatmap'
 import GymSessionCard from './GymSessionCard'
 import type { GymSession } from '../../types/gym'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
 function toISO(d: Date) {
-  return d.toISOString().slice(0, 10)
+  return getLocalISOString(d)
 }
 
 function computeStreak(completedDates: string[]): number {

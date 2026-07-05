@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, TrendingUp, CheckCircle2, Bitcoin, PiggyBank, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useSavingsStore, getWeekStart } from '../../store/savingsStore'
 import type { AssetType } from '../../types/savings'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
 const WEEKLY_GOAL = 100_000
 
@@ -45,7 +46,7 @@ function AddSavingsForm({ onClose }: AddSavingsFormProps) {
   const addEntry = useSavingsStore((s) => s.addEntry)
   const [amount, setAmount] = useState('')
   const [assetType, setAssetType] = useState<AssetType>('bitcoin')
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10))
+  const [date, setDate] = useState(getLocalISOString())
   const [note, setNote] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
@@ -281,7 +282,7 @@ export default function WeeklySavingsWidget() {
   const [viewDate, setViewDate] = useState(new Date())
   const entries = useSavingsStore((s) => s.entries)
   
-  const currentMonth = viewDate.toISOString().slice(0, 7)
+  const currentMonth = getLocalISOMonth(viewDate)
   const bitcoinCount = entries.filter(e => e.assetType === 'bitcoin' && e.date.startsWith(currentMonth)).length
   const seabankCount = entries.filter(e => e.assetType === 'seabank' && e.date.startsWith(currentMonth)).length
 

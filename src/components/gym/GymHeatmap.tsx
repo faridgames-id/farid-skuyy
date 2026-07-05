@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { useGymStore } from '../../store/gymStore'
 import type { WorkoutType } from '../../types/gym'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
 const TYPE_COLORS: Record<WorkoutType, string> = {
   Push:         'bg-orange-400',
@@ -17,7 +18,7 @@ const TYPE_COLORS: Record<WorkoutType, string> = {
 }
 
 function toISO(d: Date) {
-  return d.toISOString().slice(0, 10)
+  return getLocalISOString(d)
 }
 
 interface HeatmapDay {

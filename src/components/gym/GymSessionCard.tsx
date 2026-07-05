@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Trash2, Clock, ChevronDown, CheckCircle2, Circle } from 'lucide-react'
 import { useGymStore } from '../../store/gymStore'
 import type { GymSession, WorkoutType } from '../../types/gym'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
 const TYPE_META: Record<WorkoutType, { emoji: string; grad: string; text: string }> = {
   Push:         { emoji: '💪', grad: 'from-orange-400 to-red-500',    text: 'text-orange-600 dark:text-orange-400' },
@@ -17,8 +18,8 @@ const TYPE_META: Record<WorkoutType, { emoji: string; grad: string; text: string
 }
 
 function formatDate(iso: string) {
-  const today = new Date().toISOString().slice(0, 10)
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10)
+  const today = getLocalISOString()
+  const yesterday = getLocalISOString(new Date(Date.now() - 86400000))
   if (iso === today) return 'Today'
   if (iso === yesterday) return 'Yesterday'
   return new Date(iso + 'T00:00:00').toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })

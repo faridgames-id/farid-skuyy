@@ -7,6 +7,7 @@ import {
 import { useSavingsStore, getWeekStart } from '../../store/savingsStore'
 import InvestmentTrendChart from './InvestmentTrendChart'
 import type { AssetType } from '../../types/savings'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
 const WEEKLY_GOAL = 100_000
 
@@ -67,7 +68,7 @@ function DepositModal({ assetType, onClose }: DepositModalProps) {
     addEntry({
       assetType,
       amount: num,
-      date: new Date().toISOString().slice(0, 10),
+      date: getLocalISOString(),
       note: note.trim() || undefined,
     })
     setTimeout(() => onClose(), 400)
@@ -220,7 +221,7 @@ export default function SavingsPage() {
     })
   }
 
-  const currentMonth = viewDate.toISOString().slice(0, 7)
+  const currentMonth = getLocalISOMonth(viewDate)
   const monthLabel = viewDate.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })
   const bitcoinCount = entries.filter(e => e.assetType === 'bitcoin' && e.date.startsWith(currentMonth)).length
   const seabankCount = entries.filter(e => e.assetType === 'seabank' && e.date.startsWith(currentMonth)).length

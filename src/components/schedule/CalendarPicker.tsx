@@ -1,9 +1,10 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
 function toISO(d: Date) {
-  return d.toISOString().slice(0, 10)
+  return getLocalISOString(d)
 }
 
 interface Props {

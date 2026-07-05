@@ -10,8 +10,9 @@ import { restoreBackupToCloud, wipeCloudData } from '../../lib/cloudSync'
 import { useIncomeStore } from '../../store/incomeStore'
 import { useScheduleStore } from '../../store/scheduleStore'
 import { useGymStore } from '../../store/gymStore'
+import { getLocalISOString, getLocalISOMonth } from '../../utils/date'
 
-function toISO(d: Date) { return d.toISOString().slice(0, 10) }
+function toISO(d: Date) { return getLocalISOString(d) }
 
 export default function ProfilePage() {
   const { user, setUser, logout, theme, toggleTheme } = useAppStore()
@@ -110,7 +111,7 @@ export default function ProfilePage() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `farid-tracker-backup-${new Date().toISOString().slice(0, 10)}.json`
+    a.download = `farid-tracker-backup-${getLocalISOString()}.json`
     a.click()
     URL.revokeObjectURL(url)
   }

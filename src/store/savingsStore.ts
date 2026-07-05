@@ -5,6 +5,7 @@ import { doc, setDoc, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { useAppStore } from './appStore'
 import type { SavingsEntry, AssetType } from '../types/savings'
+import { getLocalISOString, getLocalISOMonth } from '../utils/date'
 
 interface SavingsState {
   entries: SavingsEntry[]
@@ -27,7 +28,7 @@ export function getWeekStart(date: Date = new Date()): string {
   const day = d.getDay()
   const diff = d.getDate() - day + (day === 0 ? -6 : 1) // Monday
   d.setDate(diff)
-  return d.toISOString().slice(0, 10)
+  return getLocalISOString(d)
 }
 
 export const useSavingsStore = create<SavingsState>()(
@@ -92,7 +93,7 @@ export const useSavingsStore = create<SavingsState>()(
         const { entries } = get()
         const weekEnd = new Date(weekStart + 'T00:00:00')
         weekEnd.setDate(weekEnd.getDate() + 6)
-        const weekEndISO = weekEnd.toISOString().slice(0, 10)
+        const weekEndISO = getLocalISOString(weekEnd)
 
         const weekEntries = entries.filter(
           (e) => e.date >= weekStart && e.date <= weekEndISO

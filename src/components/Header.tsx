@@ -5,6 +5,7 @@ import type { ChangeEvent } from 'react'
 import { toast } from 'react-hot-toast'
 import { useAppStore, clearAllLocalData } from '../store/appStore'
 import { restoreBackupToCloud } from '../lib/cloudSync'
+import { getLocalISOString, getLocalISOMonth } from '../utils/date'
 
 function Avatar({ name, photoURL }: { name: string; photoURL: string | null }) {
   if (photoURL) {
@@ -44,7 +45,7 @@ export default function Header() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `farid-tracker-backup-${new Date().toISOString().split('T')[0]}.json`
+    a.download = `farid-tracker-backup-${getLocalISOString()}.json`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
